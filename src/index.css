@@ -245,6 +245,10 @@ button { font-family: inherit; }
 .legal h1 { font-size: clamp(30px, 5vw, 44px); }
 .legal .updated { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 13px; margin-top: 10px; }
 
+/* Razorpay checkout bridge page — centered status, no Nav/Footer chrome */
+.checkout-container { max-width: 520px; text-align: center; }
+.checkout-container .updated { margin-top: 16px; font-family: inherit; font-size: 15px; line-height: 1.6; }
+
 .legal-body {
   margin-top: 48px;
   display: grid;

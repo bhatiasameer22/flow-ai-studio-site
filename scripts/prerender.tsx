@@ -128,3 +128,14 @@ for (const route of ROUTES) {
   writeFileSync(outPath, html);
   console.log(`  prerendered ${route.path.padEnd(28)} -> dist/${route.outFile}`);
 }
+
+// /checkout (Razorpay bridge page, opened by the extension) is deliberately
+// NOT in ROUTES above — its content is entirely query-param + runtime-script
+// driven, so there's nothing meaningful to prerender, and it isn't linked
+// from anywhere search engines would find. It still needs a physical file
+// to exist so Vercel doesn't 404 on a direct navigation there (this repo
+// has no catch-all SPA rewrite) — write the pristine, un-prerendered shell
+// (empty #root) so main.tsx takes its plain client-render path rather than
+// hydrateRoot, and `cleanUrls` in vercel.json serves it at /checkout.
+writeFileSync(resolve(distDir, "checkout.html"), template);
+console.log("  shell            /checkout                   -> dist/checkout.html");
