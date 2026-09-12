@@ -10,6 +10,7 @@ import Privacy from "./pages/Privacy";
 import Refund from "./pages/Refund";
 import Support from "./pages/Support";
 import Terms from "./pages/Terms";
+import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 
 const app = (
@@ -26,6 +27,9 @@ const app = (
           <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        {/* No Layout (Nav/Footer) — this is a payment bridge page opened by
+            the extension in its own tab, not part of the marketing site. */}
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
