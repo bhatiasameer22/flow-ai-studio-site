@@ -30,14 +30,17 @@ export default function Footer() {
             {sectionLink("#features", "Features")}
             {sectionLink("#how-it-works", "How It Works")}
             {sectionLink("#faq", "FAQ")}
+            <Link to="/pricing">Pricing</Link>
           </div>
           <div className="footer__col">
             <span className="footer__heading">Legal</span>
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms</Link>
+            <Link to="/refund-policy">Refund Policy</Link>
           </div>
           <div className="footer__col">
             <span className="footer__heading">Help</span>
+            <Link to="/about">About</Link>
             <Link to="/support">Support</Link>
             <a href={`mailto:${SUPPORT_EMAIL}`}>Contact</a>
           </div>

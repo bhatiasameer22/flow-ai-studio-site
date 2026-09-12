@@ -76,6 +76,9 @@ export default function Nav() {
               </Link>
             )
           )}
+          <Link to="/pricing" onClick={() => setOpen(false)}>
+            Pricing
+          </Link>
           <Link to="/privacy" onClick={() => setOpen(false)}>
             Privacy Policy
           </Link>

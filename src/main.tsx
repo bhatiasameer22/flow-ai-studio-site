@@ -4,7 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Pricing from "./pages/Pricing";
 import Privacy from "./pages/Privacy";
+import Refund from "./pages/Refund";
 import Support from "./pages/Support";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
@@ -15,7 +18,10 @@ const app = (
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/refund-policy" element={<Refund />} />
           <Route path="/support" element={<Support />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<NotFound />} />
