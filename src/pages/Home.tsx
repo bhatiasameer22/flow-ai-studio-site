@@ -2,6 +2,7 @@ import { useState } from "react";
 import BrowserFrame from "../components/BrowserFrame";
 import WorkflowRibbon from "../components/WorkflowRibbon";
 import AddToChromeButton from "../components/AddToChromeButton";
+import { PRODUCT_VERSION } from "../config/constants";
 
 const FEATURES = [
   {
@@ -130,7 +131,7 @@ function Hero() {
       <div className="glow glow-yellow" style={{ width: 420, height: 420, top: 40, right: "4%" }} />
       <div className="container hero__inner">
         <div className="hero__copy">
-          <span className="eyebrow">Flow AI Studio · v0.2.0</span>
+          <span className="eyebrow">Flow AI Studio · v{PRODUCT_VERSION}</span>
           <h1>Create. Generate. Organize.</h1>
           <p className="hero__sub">
             A focused workspace for managing image and video generation workflows with Google Flow.
