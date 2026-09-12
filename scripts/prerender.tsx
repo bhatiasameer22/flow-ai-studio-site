@@ -12,7 +12,10 @@ import { createElement } from "react";
 import { StaticRouter, Routes, Route } from "react-router-dom";
 import Layout from "../src/components/Layout";
 import Home from "../src/pages/Home";
+import About from "../src/pages/About";
+import Pricing from "../src/pages/Pricing";
 import Privacy from "../src/pages/Privacy";
+import Refund from "../src/pages/Refund";
 import Support from "../src/pages/Support";
 import Terms from "../src/pages/Terms";
 import NotFound from "../src/pages/NotFound";
@@ -23,11 +26,29 @@ const distDir = resolve(__dirname, "../dist");
 const ROUTES: Array<{ path: string; outFile: string; title?: string; description?: string }> = [
   { path: "/", outFile: "index.html" },
   {
+    path: "/about",
+    outFile: "about/index.html",
+    title: "About — Flow AI Studio",
+    description: "About Flow AI Studio, an independent third-party Chrome extension for Google Flow.",
+  },
+  {
+    path: "/pricing",
+    outFile: "pricing/index.html",
+    title: "Pricing — Flow AI Studio",
+    description: "Flow AI Studio pricing: a Free plan and a Max plan with unlimited daily prompts.",
+  },
+  {
     path: "/privacy",
     outFile: "privacy/index.html",
     title: "Privacy Policy — Flow AI Studio",
     description:
       "How Flow AI Studio, an independent third-party Chrome extension, handles information when you use it.",
+  },
+  {
+    path: "/refund-policy",
+    outFile: "refund-policy/index.html",
+    title: "Refund & Cancellation Policy — Flow AI Studio",
+    description: "Refund and cancellation policy for Flow AI Studio's Max plan subscription.",
   },
   {
     path: "/support",
@@ -54,7 +75,10 @@ function AppTree() {
       Route,
       { element: createElement(Layout) },
       createElement(Route, { path: "/", element: createElement(Home) }),
+      createElement(Route, { path: "/about", element: createElement(About) }),
+      createElement(Route, { path: "/pricing", element: createElement(Pricing) }),
       createElement(Route, { path: "/privacy", element: createElement(Privacy) }),
+      createElement(Route, { path: "/refund-policy", element: createElement(Refund) }),
       createElement(Route, { path: "/support", element: createElement(Support) }),
       createElement(Route, { path: "/terms", element: createElement(Terms) }),
       createElement(Route, { path: "*", element: createElement(NotFound) })
