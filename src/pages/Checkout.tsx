@@ -40,6 +40,12 @@ function loadRazorpayScript(): Promise<void> {
  * itself, so this ordinary web page is what actually loads Razorpay's
  * Checkout.js and opens the payment modal.
  *
+ * Two modes, both driven entirely by which query params are present:
+ *  - subscription_id + key_id: a real recurring ₹ Subscription (India).
+ *  - order_id + key_id + amount + currency: a one-time $ payment via
+ *    PayPal (international) — see functions/src/razorpay.ts in the
+ *    flow-ai-studio repo for why this is one-time rather than recurring.
+ *
  * This page's own success/failure state is UX only. The user's plan
  * actually changes server-side via Razorpay's webhook straight to the
  * FlowPilot Cloud Function — never through anything that happens here —
@@ -48,11 +54,17 @@ function loadRazorpayScript(): Promise<void> {
 export default function Checkout() {
   const [params] = useSearchParams();
   const subscriptionId = params.get("subscription_id");
+  const orderId = params.get("order_id");
   const keyId = params.get("key_id");
+  const amount = params.get("amount");
+  const currency = params.get("currency");
   const [status, setStatus] = useState<Status>("loading");
 
+  const isSubscription = Boolean(subscriptionId && keyId);
+  const isOneTimeOrder = Boolean(orderId && keyId && amount && currency);
+
   useEffect(() => {
-    if (!subscriptionId || !keyId) {
+    if (!isSubscription && !isOneTimeOrder) {
       setStatus("error");
       return;
     }
@@ -64,11 +76,16 @@ export default function Checkout() {
         if (cancelled || !window.Razorpay) return;
         setStatus("ready");
 
+        const options: Record<string, unknown> = isSubscription
+          ? { key: keyId, subscription_id: subscriptionId }
+          : { key: keyId, order_id: orderId, amount, currency };
+
         const razorpay = new window.Razorpay({
-          key: keyId,
-          subscription_id: subscriptionId,
+          ...options,
           name: "FlowPilot",
-          description: "Max plan — unlimited daily prompts",
+          description: isSubscription
+            ? "Max plan — unlimited daily prompts"
+            : "Max plan — 30 days of unlimited daily prompts",
           theme: { color: "#7c5cff" },
           handler: () => {
             if (!cancelled) setStatus("success");
@@ -88,7 +105,7 @@ export default function Checkout() {
     return () => {
       cancelled = true;
     };
-  }, [subscriptionId, keyId]);
+  }, [isSubscription, isOneTimeOrder, subscriptionId, orderId, keyId, amount, currency]);
 
   return (
     <section className="legal">
@@ -113,8 +130,9 @@ export default function Checkout() {
           <>
             <h1>Payment received 🎉</h1>
             <p className="updated">
-              Your Max plan will activate within a few seconds. You can close this tab and
-              go back to FlowPilot.
+              {isOneTimeOrder
+                ? "Your Max plan will activate within a few seconds and last 30 days. You can close this tab and go back to FlowPilot."
+                : "Your Max plan will activate within a few seconds. You can close this tab and go back to FlowPilot."}
             </p>
           </>
         )}
