@@ -98,17 +98,22 @@ export default function Privacy() {
               <h2>4. Account &amp; Sign-In</h2>
               <p>
                 Signing in is optional. Flow AI Studio's core prompt, queue, and generation
-                features work fully without an account. Signing in with Google is only needed to
-                use the Free/Max plan feature — tracking your daily prompt count and, if you
-                subscribe, unlocking unlimited daily prompts.
+                features work fully without an account. Signing in is only needed to use the
+                Free/Max plan feature — tracking your daily prompt count and, if you subscribe,
+                unlocking unlimited daily prompts. You can sign in with a Google account, or with
+                an email address and password.
               </p>
               <p>
-                If you sign in, we receive your Google account's email address and a unique user
-                ID from Google Sign-In. We store your plan (Free or Max), your daily prompt count,
-                and — only if you subscribe to Max — a Razorpay subscription ID, associated with
-                that user ID in our database (Google Firebase/Firestore). This information is used
-                solely to enforce the Free plan's daily limit and to determine Max plan access; it
-                is not used for advertising and is not shared with third parties beyond the service
+                If you sign in with Google, we receive your Google account's email address and a
+                unique user ID. If you sign in with email and password instead, we receive the
+                email address and password you provide — your password is never stored or seen by
+                us in plain text; it is handled entirely by our authentication provider (Google
+                Firebase Authentication), which stores only a securely hashed form of it. Either
+                way, we store your plan (Free or Max), your daily prompt count, and — only if you
+                subscribe to Max — a Razorpay subscription ID, associated with your account's user
+                ID in our database (Google Firebase/Firestore). This information is used solely to
+                enforce the Free plan's daily limit and to determine Max plan access; it is not
+                used for advertising and is not shared with third parties beyond the service
                 providers described in{" "}
                 <a href="#third-party">Third-Party Services</a> below.
               </p>
